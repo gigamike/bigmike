@@ -1,0 +1,265 @@
+<link rel="stylesheet" type="text/css" href="/css/product_styles.css">
+<link rel="stylesheet" type="text/css" href="/css/product_responsive.css">
+
+<?php
+    $this->headScript()->appendFile('/js/product_custom.js');
+?>
+<hr>
+
+<!-- Page Heading/Breadcrumbs -->
+<h1 class="mt-4 mb-3"><?php echo $this->escapeHtml($this->product->getName()); ?>
+  <small><?php echo $this->escapeHtml($this->brand->getBrand()); ?></small>
+</h1>
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="<?php echo $this->url('home'); ?>">Home</a>
+  </li>
+  <li class="breadcrumb-item active"><?php echo $this->escapeHtml($this->product->getName()); ?></li>
+</ol>
+
+<div class="single_product">
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Images -->
+      <div class="col-lg-2 order-lg-1 order-2">
+        <ul class="image_list">
+          <li data-image="/img/product/<?php echo $this->product->getId(); ?>/photo1-700x400.jpg"><img src="/img/product/<?php echo $this->product->getId(); ?>/photo1-700x400.jpg" alt=""></li>
+          <li data-image="/img/product/<?php echo $this->product->getId(); ?>/photo2-700x400.jpg"><img src="/img/product/<?php echo $this->product->getId(); ?>/photo2-700x400.jpg" alt=""></li>
+          <li data-image="/img/product/<?php echo $this->product->getId(); ?>/photo3-700x400.jpg"><img src="/img/product/<?php echo $this->product->getId(); ?>/photo3-700x400.jpg" alt=""></li>
+        </ul>
+      </div>
+
+      <!-- Selected Image -->
+      <div class="col-lg-5 order-lg-2 order-1">
+        <div class="image_selected"><img src="/img/product/<?php echo $this->product->getId(); ?>/photo1-700x400.jpg" alt=""></div>
+      </div>
+
+      <!-- Description -->
+      <div class="col-lg-5 order-3">
+        <?php
+        $flash = $this->flashMessenger();
+        $flash->setMessageOpenFormat('<div%s role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            ')
+            ->setMessageSeparatorString('')
+            ->setMessageCloseString('</div>');
+
+        echo $flash->render('error',   array('alert', 'alert-dismissible', 'alert-danger'));
+        echo $flash->render('info',    array('alert', 'alert-dismissible', 'alert-info'));
+        echo $flash->render('default', array('alert', 'alert-dismissible', 'alert-warning'));
+        echo $flash->render('success', array('alert', 'alert-dismissible', 'alert-success'));
+         ?>
+        <div class="product_description">
+          <div class="row">
+            <div class="col-md-6">
+              <small>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                  <i class="far fa-star"></i> (<?php echo rand(10,1000); ?>)
+                </small>
+            </div>
+            <div class="col-md-6 text-right">
+              <small><i class="far fa-heart"></i> (<?php echo rand(10,1000); ?>)
+            </small>
+            </div>
+          </div>
+
+          <div class="product_text">
+            <p><?php echo $this->escapeHtml($this->product->getDescription()); ?></p>
+          </div>
+          <div class="order_info d-flex flex-row">
+            <form method="post" action="<?php echo $this->url('cart', array('action' => 'add', )); ?>">
+
+
+
+              <input type="hidden" name="product_id" value="<?php echo $this->product->getId(); ?>">
+              <div class="clearfix" style="z-index: 1000;">
+
+                <?php if($this->product->getStock() > 0): ?>
+                <select name="quantity" class="custom-select mr-sm-2" id="inlineFormCustomSelect" required>
+                  <option value="">Select Quantity</option>
+                  <?php for ($ctr=1; $ctr<=$this->product->getStock(); $ctr++): ?>
+                  <option value="<?php echo $ctr; ?>"><?php echo $ctr; ?></option>
+                  <?php endfor; ?>
+                </select>
+              <?php endif; ?>
+
+              </div>
+
+              <div>
+                <?php
+                  switch($this->product->getDiscountType()){
+                    case 'amount':
+                      echo "<strong>SRP:</strong> <strike>₱" . number_format($this->product->getPrice(), 2, '.' , ',') . "</strike>";
+                      echo "<small class=\"blink\"> less ₱" . number_format($this->product->getDiscount(), 2, '.' , ',') . "</small>";
+                      $price = $this->product->getPrice() - $this->product->getDiscount();
+                      echo " <div class=\"product_price\">₱" . number_format($price, 2, '.' , ',') . "</div>";
+                      break;
+                    case 'percentage':
+                      echo "<strong>SRP:</strong> <strike>₱" . number_format($this->product->getPrice(), 2, '.' , ',') . "</strike>";
+                      $discount = $this->product->getPrice() * ($this->product->getDiscount()/100);
+                      echo "<small class=\"blink\"> less " . number_format($this->product->getDiscount(), 2, '.' , ',') . "%</small>";
+                      $price = $this->product->getPrice() - $this->product->getDiscount();
+                      echo " <div class=\"product_price\">₱" . number_format($price, 2, '.' , ',') . "</div>";
+                      break;
+                    default:
+                      echo "<div class=\"product_price\">SRP: ₱" . number_format($this->product->getPrice(), 2, '.' , ',') . "</div>";
+                  }
+                ?>
+              </div>
+              <div class="button_container">
+                <input type="submit" name="submit" value="Add To Cart" class="btn btn-primary"><br><br>
+              </div>
+              <p>
+                <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-qrcode"></i> Display QR Code</a>
+              </p>
+              <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                  <img src="<?php echo $this->getQRCode($this->product->getId(), 300, 300); ?>">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+    <?php if(!empty($this->product->getPanorama())): ?>
+    <div class="row">
+      <h2>Working Demo Virtual Reality</h2>
+      <br>
+      <!-- Post Content Column -->
+      <div class="col-lg-12">
+        <link href="https://photo-sphere-viewer.js.org/assets/css/docs.min.css" rel="stylesheet">
+        <link href="https://photo-sphere-viewer.js.org/assets/css/style.css" rel="stylesheet">
+        <style>
+          #content {
+            background:#09B4E9;
+            background:linear-gradient(135deg, #09B4E9, #15884C);
+          }
+        </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.min.js"></script>
+        <script src="https://photo-sphere-viewer.js.org/assets/js/docs.min.js"></script>
+        <script src="https://photo-sphere-viewer.js.org/assets/js/script.js"></script>
+        <div id="photosphere"></div>
+        <style>
+          .bs-docs-masthead .version {
+            color: inherit;
+          }
+        </style>
+        <!-- @formatter:off -->
+        <link rel="stylesheet" href="https://photo-sphere-viewer.js.org/node_modules/photo-sphere-viewer/dist/photo-sphere-viewer.min.css">
+        <script src="https://photo-sphere-viewer.js.org/node_modules/three/build/three.min.js"></script>
+        <script src="https://photo-sphere-viewer.js.org/node_modules/d.js/lib/D.min.js"></script>
+        <script src="https://photo-sphere-viewer.js.org/node_modules/dot/doT.min.js"></script>
+        <script src="https://photo-sphere-viewer.js.org/node_modules/uevent/uevent.min.js"></script>
+        <script src="https://photo-sphere-viewer.js.org/node_modules/three/examples/js/renderers/CanvasRenderer.js"></script>
+        <script src="https://photo-sphere-viewer.js.org/node_modules/three/examples/js/renderers/Projector.js"></script>
+        <script src="https://photo-sphere-viewer.js.org/node_modules/photo-sphere-viewer/dist/photo-sphere-viewer.min.js"></script>
+        <!-- @formatter:on -->
+
+        <script>
+        var PSV = new PhotoSphereViewer({
+          panorama: "https://photo-sphere-viewer.js.org/assets/Bryce-Canyon-National-Park-Mark-Doliner.jpg",
+          container: 'photosphere',
+          caption: '<?php echo $this->escapeHtml($this->product->getName()); ?>',
+          loading_img: "https://photo-sphere-viewer.js.org/assets/photosphere-logo.gif",
+          navbar: 'autorotate zoom download caption fullscreen',
+          default_fov: 70,
+          default_lat: 0.3,
+          mousewheel: false,
+          touchmove_two_fingers: true,
+          size: {
+            height: 500
+          }
+        });
+        </script>
+      </div>
+
+    </div>
+
+    <hr>
+   <?php endif; ?>
+
+<?php if(count($this->relatedProducts) > 0): ?>
+<hr>
+<h3 class="my-4">Related Products</h3>
+
+<div class="row">
+  <?php foreach ($this->relatedProducts as $row): ?>
+    <div class="col-lg-4 col-sm-6 portfolio-item">
+      <div class="card h-100">
+        <a href="<?php echo $this->url('product', array('action' => 'view', 'id' => $row['id'],)); ?>"><img class="card-img-top" src="/img/product/<?php echo $row->id; ?>/photo1-700x400.jpg" alt="<?php echo $this->escapeHtml($row['name']); ?>"></a>
+
+        <div class="card-body">
+          <div class="card-title">
+            <h4><a href="<?php echo $this->url('product', array('action' => 'view', 'id' => $row['id'],)); ?>"><?php echo $this->escapeHtml($row['name']); ?></a></h4>
+            <div class="row">
+              <div class="col-md-6">
+                <small>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <i class="far fa-star"></i> (<?php echo rand(10,1000); ?>)
+                  </small>
+              </div>
+              <div class="col-md-6 text-right">
+                <small><i class="far fa-heart"></i> (<?php echo rand(10,1000); ?>)
+              </small>
+              </div>
+            </div>
+          </div>
+          <p class="card-text">
+            <?php
+            $maxLen = 100;
+            $strLenDesc = strlen($row->description);
+            if($strLenDesc > $maxLen): ?>
+              <?php echo $this->escapehtml(substr($row->description, 0, $maxLen))
+                    . " <a href=\"" . $this->url('product', array('action' => 'view', 'id' => $row->id,)) . "\">...</a>"; ?>
+            <?php else: ?>
+              <?php echo $this->escapehtml($row->description); ?>
+          <?php endif; ?>
+          </p>
+          <?php
+            switch($row->discount_type){
+              case 'amount':
+                echo "<strong>SRP:</strong> <strike>₱" . number_format($row->price, 2, '.' , ',') . "</strike>";
+                echo "<small class=\"blink\"> less ₱" . number_format($row->discount, 2, '.' , ',') . "</small>";
+                $price = $row->price - $row->discount;
+                echo " <strong>₱" . number_format($price, 2, '.' , ',') . "</strong>";
+                break;
+              case 'percentage':
+                echo "<strong>SRP:</strong> <strike>₱" . number_format($row->price, 2, '.' , ',') . "</strike>";
+                $discount = $row->price * ($row->discount/100);
+                echo "<small class=\"blink\"> less " . number_format($row->discount, 2, '.' , ',') . "%</small>";
+                $price = $row->price - $row->discount;
+                echo " <strong>₱" . number_format($price, 2, '.' , ',') . "</strong>";
+                break;
+              default:
+                echo "<strong>SRP: ₱" . number_format($row->price, 2, '.' , ',') . "</strong>";
+            }
+          ?>
+
+        </div>
+        <div class="card-footer text-muted">
+          <div class="text-center">
+            <a href="<?php echo $this->url('product', array('action' => 'view', 'id' => $row['id'],)); ?>" class="btn btn-primary">Add To Cart</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php endforeach; ?>
+</div>
+<?php endif; ?>

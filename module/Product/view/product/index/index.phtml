@@ -1,0 +1,131 @@
+
+<hr>
+
+<?php
+    echo $this->paginationControl(
+        $this->paginator,
+        'sliding',
+        "partial/home/paginator.phtml",
+        array(
+            'route' => 'product',
+        'search_by' => $this->search_by,
+        )
+    );
+  ?>
+
+<div class="row">
+  <?php if(count($this->paginator) >0): ?>
+    <?php foreach ($this->paginator as $row): ?>
+      <div class="col-lg-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="<?php echo $this->url('product', array('action' => 'view', 'id' => $row['id'],)); ?>"><img class="card-img-top" src="/img/product/<?php echo $row->id; ?>/photo1-700x400.jpg" alt="<?php echo $this->escapeHtml($row['name']); ?>"></a>
+
+          <div class="card-body">
+            <div class="card-title">
+              <h4><a href="<?php echo $this->url('product', array('action' => 'view', 'id' => $row['id'],)); ?>"><?php echo $this->escapeHtml($row['name']); ?></a></h4>
+              <div class="row">
+                <div class="col-md-6">
+                  <small>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star-half-alt"></i>
+                      <i class="far fa-star"></i> (<?php echo rand(10,1000); ?>)
+                    </small>
+                </div>
+                <div class="col-md-6 text-right">
+                  <small><i class="far fa-heart"></i> (<?php echo rand(10,1000); ?>)
+                </small>
+                </div>
+              </div>
+            </div>
+            <p class="card-text">
+              <?php
+              $maxLen = 100;
+              $strLenDesc = strlen($row->description);
+              if($strLenDesc > $maxLen): ?>
+                <?php echo $this->escapehtml(substr($row->description, 0, $maxLen))
+                      . " <a href=\"" . $this->url('product', array('action' => 'view', 'id' => $row->id,)) . "\">...</a>"; ?>
+              <?php else: ?>
+                <?php echo $this->escapehtml($row->description); ?>
+            <?php endif; ?>
+            </p>
+            <?php
+              switch($row->discount_type){
+                case 'amount':
+                  echo "<strong>SRP:</strong> <strike>₱" . number_format($row->price, 2, '.' , ',') . "</strike>";
+                  echo "<small class=\"blink\"> less ₱" . number_format($row->discount, 2, '.' , ',') . "</small>";
+                  $price = $row->price - $row->discount;
+                  echo " <strong>₱" . number_format($price, 2, '.' , ',') . "</strong>";
+                  break;
+                case 'percentage':
+                  echo "<strong>SRP:</strong> <strike>₱" . number_format($row->price, 2, '.' , ',') . "</strike>";
+                  $discount = $row->price * ($row->discount/100);
+                  echo "<small class=\"blink\"> less " . number_format($row->discount, 2, '.' , ',') . "%</small>";
+                  $price = $row->price - $row->discount;
+                  echo " <strong>₱" . number_format($price, 2, '.' , ',') . "</strong>";
+                  break;
+                default:
+                  echo "<strong>SRP: ₱" . number_format($row->price, 2, '.' , ',') . "</strong>";
+              }
+            ?>
+
+          </div>
+          <div class="card-footer text-muted text-center">
+            <a href="<?php echo $this->url('product', array('action' => 'view', 'id' => $row['id'],)); ?>" class="btn btn-primary">Add To Cart</a>
+          </div>
+        </div>
+      </div>
+<?php endforeach; ?>
+<?php else: ?>
+  <div class="col-lg-12">
+    <div class="alert alert-danger" role="alert">
+      <a href="#" class="alert-link">Sorry</a>. No results.
+    </div>
+  </div>
+<?php endif; ?>
+</div>
+
+<?php
+    echo $this->paginationControl(
+        $this->paginator,
+        'sliding',
+        "partial/home/paginator.phtml",
+        array(
+            'route' => 'product',
+        'search_by' => $this->search_by,
+        )
+    );
+  ?>
+
+<hr>
+
+<h2>Premium Brands</h2>
+
+<div class="row">
+  <?php if(count($this->brands) >0): ?>
+    <?php foreach ($this->brands as $row): ?>
+  <div class="col-lg-4 col-sm-6 portfolio-item">
+    <div class="card h-100">
+      <a href="<?php echo $this->url('product', array('action' => 'view', 'id' => $row->getId(),)); ?>"><img class="card-img-top" src="/img/brand/<?php echo $this->escapehtml($row->getId()); ?>/<?php echo $this->escapehtml($row->getLogoName()); ?>" alt=""></a>
+      <div class="card-body">
+        <h4 class="card-title">
+          <a href="<?php echo $this->url('product', array('action' => 'view', 'id' => $row->getId(),)); ?>"><?php echo $this->escapehtml($row->getBrand()); ?></a>
+        </h4>
+        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+      </div>
+      <div class="card-footer">
+        <a href="<?php echo $this->url('product', array('action' => 'view', 'id' => $row->getId(),)); ?>" class="btn btn-primary">View <?php echo $this->escapehtml($row->getBrand()); ?> products</a>
+      </div>
+    </div>
+  </div>
+<?php endforeach; ?>
+<?php else: ?>
+  <div class="col-lg-12">
+    <div class="alert alert-danger" role="alert">
+      <a href="#" class="alert-link">Sorry</a>. No results.
+    </div>
+  </div>
+<?php endif; ?>
+</div>
+<!-- /.row -->

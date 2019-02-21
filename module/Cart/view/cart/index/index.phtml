@@ -1,0 +1,135 @@
+<link rel="stylesheet" type="text/css" href="/css/cart_styles.css">
+<link rel="stylesheet" type="text/css" href="/css/cart_responsive.css">
+
+<!-- Page Heading/Breadcrumbs -->
+<h1 class="mt-4 mb-3"><?php if ($user = $this->identity()): ?><?php echo $user->first_name; ?>'s<?php endif; ?>
+  <small>Cart</small>
+</h1>
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="<?php echo $this->url('home'); ?>">Home</a>
+  </li>
+  <li class="breadcrumb-item active">Cart</li>
+</ol>
+
+<div class="cart_section">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="cart_container">
+          <div class="cart_items">
+            <?php
+            $flash = $this->flashMessenger();
+            $flash->setMessageOpenFormat('<div%s role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                ')
+                ->setMessageSeparatorString('')
+                ->setMessageCloseString('</div>');
+
+            echo $flash->render('error',   array('alert', 'alert-dismissible', 'alert-danger'));
+            echo $flash->render('info',    array('alert', 'alert-dismissible', 'alert-info'));
+            echo $flash->render('default', array('alert', 'alert-dismissible', 'alert-warning'));
+            echo $flash->render('success', array('alert', 'alert-dismissible', 'alert-success'));
+             ?>
+
+            <?php if(count($this->carts) >0): ?>
+            <ul class="cart_list">
+              <?php  $total = 0; foreach ($this->carts as $row): ?>
+              <li class="cart_item clearfix">
+                <div class="cart_item_image"><img src="/img/product/<?php echo $row->product_id; ?>/photo1-700x400.jpg" alt=""></div>
+                <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
+                  <div class="cart_item_name cart_info_col">
+                    <div class="cart_item_title">Name</div>
+                    <div class="cart_item_text"><?php echo $this->escapeHtml($row['name']); ?></div>
+                  </div>
+                  <div class="cart_item_color cart_info_col">
+                    <div class="cart_item_title">Discount</div>
+                    <div class="cart_item_text"><?php
+                      switch($row->discount_type){
+                        case 'amount':
+                          echo "₱" . number_format($row->discount, 2, '.' , ',');
+                          $price = $row->price - $row->discount;
+                          break;
+                        case 'percentage':
+                          $discount = $row->price * ($row->discount/100);
+                          echo number_format($row->discount, 2, '.' , ',') . "%";
+                          $price = $row->price - $row->discount;
+                          break;
+                        default:
+                          $price = $row->price;
+                      }
+
+                      $total += $price; ?></div>
+                  </div>
+                  <div class="cart_item_quantity cart_info_col">
+                    <div class="cart_item_title">Quantity</div>
+                    <div class="cart_item_text"><?php echo $this->escapeHtml($row['quantity']); ?></div>
+                  </div>
+                  <div class="cart_item_price cart_info_col">
+                    <div class="cart_item_title">Price</div>
+                    <div class="cart_item_text">₱<?php echo number_format($row->price, 2, '.' , ','); ?></div>
+                  </div>
+                  <div class="cart_item_total cart_info_col">
+                    <div class="cart_item_title">Total</div>
+                    <div class="cart_item_text">₱<?php echo number_format($price, 2, '.' , ','); ?></div>
+                  </div>
+                  <div class="cart_item_total cart_info_col">
+                    <div class="cart_item_title">Remove</div>
+                    <div class="cart_item_text"><a href="<?php echo $this->url('cart', array('action' => 'delete', 'id' => $row->id,)); ?>"><i class="fas fa-trash-alt"></i></a></div>
+                  </div>
+                </div>
+              </li>
+              <?php endforeach; ?>
+
+            </ul>
+
+            <!-- Order Total -->
+            <div class="order_total">
+              <div class="order_total_content text-md-right">
+                <div class="order_total_title">Order Total:</div>
+                <div class="order_total_amount">₱<?php echo number_format($total, 2, '.' , ','); ?></div>
+              </div>
+            </div>
+
+            <div class="order_total">
+              <div class="order_total_content text-md-right">
+                <div class="order_total_title">Remaining Credits:</div>
+                <div class="order_total_amount" style="<?php if($this->user->getCredits() < $total): ?>color:#f20000<?php else: ?>color:#0da817<?php endif; ?>">₱<?php echo number_format($this->user->getCredits(), 2, '.' , ','); ?></div>
+              </div>
+            </div>
+
+            <div class="cart_buttons">
+              <a href="<?php echo $this->url('home'); ?>" class="cancelButton">Go back shopping</a>
+              <?php if($this->user->getCredits() < $total): ?>
+              <a href="<?php echo $this->url('cart', array('action' => 'buy-credits')); ?>" class="buyButton">Buy Credits</a>
+              <?php else: ?>
+              <a href="<?php echo $this->url('cart', array('action' => 'checkout')); ?>" class="buyButton">Checkout</a>
+              <?php endif; ?>
+            </div>
+          <?php else: ?>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="alert alert-danger" role="alert">
+                  <a href="#" class="alert-link">Cart is empty. Go Shopping!
+                </div>
+              </div>
+            </div>
+            <div class="cart_buttons">
+              <a href="<?php echo $this->url('home'); ?>" class="button cart_button_clear">Go back shopping</a>
+            </div>
+            <?php endif; ?>
+          </div>
+
+
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

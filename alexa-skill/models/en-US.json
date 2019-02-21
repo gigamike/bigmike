@@ -1,0 +1,187 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "big mike",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "GetBodyMassIndexIntent",
+          "samples": [
+            "get my body mass index",
+            "get my B M I"
+          ]
+        },
+        {
+          "name": "GetBodyMassIndexHeightIntent",
+          "slots": [
+            {
+              "name": "HeightCentimeters",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "{HeightCentimeters} centimeters",
+            "my height is {HeightCentimeters}",
+            "my height is {HeightCentimeters} centimeters",
+          ]
+        },
+        {
+          "name": "GetBodyMassIndexWeightIntent",
+          "slots": [
+            {
+              "name": "WeightKilograms",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "{WeightKilograms} kilograms",
+            "my weight is {WeightKilograms}",
+            "my weight is {WeightKilograms} kilograms",
+          ]
+        },
+        {
+          "name": "GetDietForUnderweightIntent"
+          ],
+          "samples": [
+            "diet for underweight"
+          ]
+        },
+        {
+          "name": "GetDietForNormalWeightIntent"
+          ],
+          "samples": [
+            "diet for normal weight"
+          ]
+        },
+        {
+          "name": "GetDietForOverweightIntent"
+          ],
+          "samples": [
+            "diet for overweight"
+          ]
+        },
+        {
+          "name": "GetDietForObeseIntent"
+          ],
+          "samples": [
+            "diet for obese"
+          ]
+        },
+        {
+          "name": "GetGymProgramForUnderweightIntent"
+          ],
+          "samples": [
+            "gym program for underweight"
+          ]
+        },
+        {
+          "name": "GetGymProgramForNormalWeightIntent"
+          ],
+          "samples": [
+            "gym program for normal weight"
+          ]
+        },
+        {
+          "name": "GetGymProgramForOverweightIntent"
+          ],
+          "samples": [
+            "gym program for overweight"
+          ]
+        },
+        {
+          "name": "GetGymProgramForObeseIntent"
+          ],
+          "samples": [
+            "gym program for obese"
+          ]
+        },
+        {
+          "name": "GetNutritionFactIntent",
+          "slots": [
+            {
+              "name": "Food",
+              "type": "AMAZON.Food"
+            }
+          ],
+          "samples": [
+            "nutrition fact for {Food}",
+            "nutrition fact for one cup of {Food}"
+          ]
+        },
+        {
+          "name": "GetAddCartEnervonCIntent",
+          "samples": [
+            "add Enervon C",
+            "add Enervon C to my cart"
+          ]
+        },
+        {
+          "name": "GetAddCartOptimumNutritionWheyProteinIntent",
+          "samples": [
+            "add Optimum Nutrition Whey Protein",
+            "add Optimum Nutrition Whey Protein to my cart"
+          ]
+        },
+        {
+          "name": "GetAddCartCentrumMultivitaminIntent",
+          "samples": [
+            "add Centrum Multivitamin",
+            "add Centrum Multivitamin to my cart",
+            "add Centrum Multivitamins",
+            "add Centrum Multivitamins to my cart"
+          ]
+        },
+        {
+          "name": "GetAddCartMuscleTechCreatineIntent",
+          "samples": [
+            "add Muscle Tech Creatine",
+            "add Muscle Tech Creatine to my cart"
+          ]
+        },
+        {
+          "name": "GetAddCartHydroxycutHardcoreIntent",
+          "samples": [
+            "add Hydroxycut Hardcore",
+            "add Hydroxycut Hardcore to my cart",
+            "add Hydroxycut",
+            "add Hydroxycut to my cart"
+          ]
+        },
+        {
+          "name": "GetAddCartOptimumNutritionLGlutamineIntent",
+          "samples": [
+            "add Optimum Nutrition L Glutamine",
+            "add Optimum Nutrition L Glutamine to my cart"
+          ]
+        },
+        {
+          "name": "GetAddCartAnimalPakMultivitaminIntent",
+          "samples": [
+            "add Animal Pak Multivitamin",
+            "add Animal Pak Multivitamin to my cart",
+            "add Animal Pak Multivitamins",
+            "add Animal Pak Multivitamins to my cart"
+          ]
+        },
+        {
+          "name": "GetAddCartSchiekWristWrapsIntent",
+          "samples": [
+            "add Schiek wrist wraps",
+            "add Schiek wrist wraps to my cart"
+          ]
+        }
+      ],
+    }
+  }
+}

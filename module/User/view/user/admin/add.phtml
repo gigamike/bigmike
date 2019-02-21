@@ -1,0 +1,80 @@
+
+  <div class="container-fluid">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="<?php echo $this->url('admin-user'); ?>">User</a>
+      </li>
+      <li class="breadcrumb-item active">Add User</li>
+    </ol>
+
+    <?php
+    $flash = $this->flashMessenger();
+    $flash->setMessageOpenFormat('<div%s role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        ')
+        ->setMessageSeparatorString('')
+        ->setMessageCloseString('</div>');
+
+    echo $flash->render('error',   array('alert', 'alert-dismissible', 'alert-danger'));
+    echo $flash->render('info',    array('alert', 'alert-dismissible', 'alert-info'));
+    echo $flash->render('default', array('alert', 'alert-dismissible', 'alert-warning'));
+    echo $flash->render('success', array('alert', 'alert-dismissible', 'alert-success'));
+     ?>
+     <h1>Add User</h1>
+     <hr>
+    <div class="card mb-3">
+      <div class="card-body">
+        <?php
+        $form->setAttribute('action', $this->url('admin-user', ['action' => 'add',]));
+        $form->prepare();
+        echo $this->form()->openTag($form);
+        ?>
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <?= $this->formLabel($form->get('first_name')) ?>
+            <?= $this->formElement($form->get('first_name')) ?>
+            <?= $this->formElementErrors()->render($form->get('first_name'), ['class' => 'help-block']) ?>
+          </div>
+          <div class="col-md-6 mb-3">
+            <?= $this->formLabel($form->get('last_name')) ?>
+            <?= $this->formElement($form->get('last_name')) ?>
+            <?= $this->formElementErrors()->render($form->get('last_name'), ['class' => 'help-block']) ?>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <?= $this->formLabel($form->get('email')) ?>
+            <?= $this->formElement($form->get('email')) ?>
+            <?= $this->formElementErrors()->render($form->get('email'), ['class' => 'help-block']) ?>
+          </div>
+          <div class="col-md-6 mb-3">
+            <?= $this->formLabel($form->get('role')) ?>
+            <?= $this->formElement($form->get('role')) ?>
+            <?= $this->formElementErrors()->render($form->get('role'), ['class' => 'help-block']) ?>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <?= $this->formLabel($form->get('password')) ?>
+            <?= $this->formElement($form->get('password')) ?>
+            <?= $this->formElementErrors()->render($form->get('password'), ['class' => 'help-block']) ?>
+          </div>
+          <div class="col-md-6 mb-3">
+            <?= $this->formLabel($form->get('confirm_password')) ?>
+            <?= $this->formElement($form->get('confirm_password')) ?>
+            <?= $this->formElementErrors()->render($form->get('confirm_password'), ['class' => 'help-block']) ?>
+          </div>
+        </div>
+        <?php echo $this->formSubmit($form->get('submit')); ?>
+        <a href="<?php echo $this->url('admin-user'); ?>" class="btn btn-secondary">Cancel</a>
+        <?php echo $this->form()->closeTag();?>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- /.container-fluid -->

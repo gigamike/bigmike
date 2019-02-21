@@ -1,0 +1,63 @@
+
+  <div class="container-fluid">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="<?php echo $this->url('supplier-brand'); ?>">Brand</a>
+      </li>
+      <li class="breadcrumb-item active">Add Brand</li>
+    </ol>
+
+    <?php
+    $flash = $this->flashMessenger();
+    $flash->setMessageOpenFormat('<div%s role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        ')
+        ->setMessageSeparatorString('')
+        ->setMessageCloseString('</div>');
+
+    echo $flash->render('error',   array('alert', 'alert-dismissible', 'alert-danger'));
+    echo $flash->render('info',    array('alert', 'alert-dismissible', 'alert-info'));
+    echo $flash->render('default', array('alert', 'alert-dismissible', 'alert-warning'));
+    echo $flash->render('success', array('alert', 'alert-dismissible', 'alert-success'));
+     ?>
+     <h1>Add Brand</h1>
+     <hr>
+    <div class="card mb-3">
+      <div class="card-body">
+        <?php
+        $form->setAttribute('action', $this->url('supplier-brand', ['action' => 'add',]));
+        $form->prepare();
+        echo $this->form()->openTag($form);
+        ?>
+        <div class="form-group">
+          <?= $this->formLabel($form->get('brand')) ?>
+          <?= $this->formElement($form->get('brand')) ?>
+          <?= $this->formElementErrors()->render($form->get('brand'), ['class' => 'help-block']) ?>
+        </div>
+        <div class="form-group">
+          <?= $this->formLabel($form->get('description')) ?>
+          <?= $this->formElement($form->get('description')) ?>
+          <?= $this->formElementErrors()->render($form->get('description'), ['class' => 'help-block']) ?>
+        </div>
+        <div class="form-group">
+          <?= $this->formLabel($form->get('logo')) ?>
+          <?= $this->formFile($form->get('logo')) ?>
+          <?= $this->formElementErrors()->render($form->get('logo'), ['class' => 'help-block']) ?>
+          <ul class="help-block">
+            <li>File Types: png, jpg, jpeg, gif</li>
+            <li>Dimension: 700x400</li>
+          </ul>
+        </div>
+        <?php echo $this->formSubmit($form->get('submit')); ?>
+        <a href="<?php echo $this->url('supplier-brand'); ?>" class="btn btn-secondary">Cancel</a>
+        <?php echo $this->form()->closeTag();?>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- /.container-fluid -->

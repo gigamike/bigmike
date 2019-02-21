@@ -1,0 +1,49 @@
+<!-- Page Heading/Breadcrumbs -->
+<h1 class="mt-4 mb-3">Welcome
+  <small><?php if ($user = $this->identity()): ?><?php echo $user->first_name; ?> <?php echo $user->last_name; ?><?php endif; ?></small>
+</h1>
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="<?php echo $this->url('member'); ?>">Home</a>
+  </li>
+  <li class="breadcrumb-item active">Dashboard</li>
+</ol>
+
+<!-- Content Row -->
+<div class="row">
+  <!-- Sidebar Column -->
+  <div class="col-lg-3 mb-4">
+    <?php echo $this->partial('partial/member/menu.phtml', array(
+        'route' => $this->route,
+        'action' => $this->action,
+    )); ?>
+  </div>
+  <!-- Content Column -->
+  <div class="col-lg-9 mb-4">
+    <h2>Dashboard</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, et temporibus, facere perferendis veniam beatae non debitis, numquam blanditiis necessitatibus vel mollitia dolorum laudantium, voluptate dolores iure maxime ducimus fugit.</p>
+
+    <?php
+    $flash = $this->flashMessenger();
+    $flash->setMessageOpenFormat('<div%s role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        ')
+        ->setMessageSeparatorString('')
+        ->setMessageCloseString('</div>');
+
+    echo $flash->render('error',   array('alert', 'alert-dismissible', 'alert-danger'));
+    echo $flash->render('info',    array('alert', 'alert-dismissible', 'alert-info'));
+    echo $flash->render('default', array('alert', 'alert-dismissible', 'alert-warning'));
+    echo $flash->render('success', array('alert', 'alert-dismissible', 'alert-success'));
+     ?>
+
+    
+
+  </div>
+  <!-- /.container-fluid -->
+  </div>
+</div>
+<!-- /.row -->

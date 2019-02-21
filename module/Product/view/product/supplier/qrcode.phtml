@@ -1,0 +1,26 @@
+<div class="container-fluid">
+
+  <!-- Breadcrumbs-->
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="<?php echo $this->url('supplier-product'); ?>">Product</a>
+    </li>
+    <li class="breadcrumb-item active">QR Code</li>
+  </ol>
+
+   <h1><?php echo $this->escapeHtml($this->brand->getBrand()); ?> <?php echo $this->escapeHtml($this->product->getName()); ?></h1>
+   <hr>
+  <div class="card mb-3">
+    <div class="card-body">
+      <p><?php echo $this->escapeHtml($this->product->getDescription()); ?></p>
+      <img src="<?php echo $this->getQRCode($this->product->getId(), 300, 300); ?>">
+      <br>
+      <a target="_blank" href="<?php echo $config['baseUrl']; ?>product/view/<?php echo $this->escapeHtml($this->product->getId()); ?>"><?php echo $config['baseUrl']; ?>product/view/<?php echo $this->escapeHtml($this->product->getId()); ?></a>
+      <br><br>
+      <a href="/supplier/product/" class="btn btn-secondary">Cancel</a>
+    </div>
+
+  </div>
+
+</div>
+<!-- /.container-fluid -->

@@ -1,0 +1,257 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('AWS Hackdays Philippines 2019')->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1, shrink-to-fit=no')
+        ?>
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+              ->prependStylesheet($this->basePath() . '/css/style.css?rand=' . time())
+              ->prependStylesheet($this->basePath() . '/css/modern-business.css')
+              ->prependStylesheet($this->basePath() . '/vendor/9bitStudios-flexisel-f86b2ef/css/style.css')
+              ->prependStylesheet($this->basePath() . '/vendor/bootstrap-social-gh-pages/bootstrap-social.css')
+              ->prependStylesheet($this->basePath() . '/vendor/fontawesome-free-5.5.0-web/css/all.css')
+              ->prependStylesheet($this->basePath() . '/vendor/bootstrap/css/bootstrap.min.css') ?>
+    </head>
+    <body>
+      <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="<?php echo $this->url('home'); ?>">Big Mike</a>
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <?php if ($user = $this->identity()): ?>
+                  <?php if ($user->role == 'member'): ?>
+                <li class="nav-item">
+                  <a class="nav-link" href="<?php echo $this->url('cart'); ?>"><i class="fas fa-user"></i> <?php echo $user->first_name; ?></a>
+                </li>
+              <?php elseif ($user->role == 'supplier'): ?>
+                  <li class="nav-item">
+                    <a class="nav-link" href="<?php echo $this->url('supplier'); ?>"><i class="fas fa-user"></i> <?php echo $user->first_name; ?></a>
+                  </li>
+                <?php endif; ?>
+                <li class="nav-item">
+                  <a class="nav-link" href="<?php echo $this->url('logout'); ?>"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
+              <?php else: ?>
+                <li class="nav-item">
+                  <a class="nav-link" href="<?php echo $this->url('registration'); ?>"><i class="fas fa-registered"></i> Register</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="<?php echo $this->url('login'); ?>"><i class="fas fa-sign-in-alt"></i> Sign in</a>
+                </li>
+              <?php endif; ?>
+              <li class="nav-item">
+                <a class="nav-link" href="<?php echo $this->url('cart'); ?>"><i class="fas fa-shopping-cart"></i> My Cart</a>
+              </li>
+              <?php if ($user = $this->identity()): ?>
+                <li class="nav-item">
+                  <a class="nav-link" href="<?php echo $this->url('cart', array('action' => 'buy-credits',)); ?>"><i class="fas fa-credit-card"></i> <?php if(is_null($this->sessionUser->getCredits())): ?>₱0.00<?php else: ?>₱<?php echo number_format($this->sessionUser->getCredits(), 2, '.',','); ?><?php endif; ?></a>
+                </li>
+                <?php else: ?>
+              <li class="nav-item">
+                <a class="nav-link" href="<?php echo $this->url('cart', array('action' => 'buy-credits',)); ?>"><i class="fas fa-credit-card"></i> Buy Credits</a>
+              </li>
+              <?php endif; ?>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-weight"></i> BMI</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-dumbbell"></i> Gym</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-utensils"></i> Nutrition Facts</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="<?php echo $this->url('api'); ?>"><i class="fas fa-robot"></i> API</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <?php if($this->route == 'home'): ?>
+      <header>
+        <ul id="flexiselDemo1">
+            <?php foreach ($this->optionBrands as $row): ?>
+            <li><img src="/img/brand/<?php echo $row['id']; ?>/logo100x45.jpg" /></li>
+          <?php endforeach; ?>
+        </ul>
+        <div class="clearboth"></div>
+
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner" role="listbox">
+            <!-- Slide One - Set the background image for this slide in the line below -->
+            <div class="carousel-item active" style="background-image: url('/img/slides/slide1.jpg')">
+              <div class="carousel-caption d-none d-md-block">
+                <h3>Big Mike</h3>
+                <p>Your personal fitness coach by Team Gigamike</p>
+              </div>
+            </div>
+            <!-- Slide Two - Set the background image for this slide in the line below -->
+            <div class="carousel-item" style="background-image: url('/img/slides/slide2.jpg')">
+              <div class="carousel-caption d-none d-md-block">
+                <h3>Are you healthy?</h3>
+                <p>This is a description for the first slide.</p>
+              </div>
+            </div>
+            <!-- Slide Three - Set the background image for this slide in the line below -->
+            <div class="carousel-item" style="background-image: url('/img/slides/slide3.jpg')">
+              <div class="carousel-caption d-none d-md-block">
+                <h3>Buy now supplements</h3>
+                <p>This is a description for the third slide.</p>
+              </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+
+      </header>
+      <?php endif; ?>
+
+      <div class="container">
+        <br>
+        <?php if($this->route == 'home'): ?>
+          <h1 class="my-4">Welcome To Big Mike</h1>
+          <p>Your personal fitness coach by Team Gigamike. Powered by Alexa. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+       <?php else: ?>
+        <br>
+        <?php endif; ?>
+
+        <div class="jumbotron">
+
+          <form action="<?php echo $this->url('product', array('action' => 'search',)); ?>" method="post">
+            <div class="form-row align-items-center">
+              <div class="col-auto">
+                <input type="text" class="form-control mb-2" name="keyword" placeholder="Search for products" value="<?php echo $this->keyword; ?>">
+              </div>
+              <div class="col-auto">
+                <select class="form-control mb-2" name="search_category_id">
+                  <option value="">All Categories</option>
+                  <?php foreach ($this->optionCategories as $row): ?>
+                  <option <?php if($this->search_category_id == $row->getId()): ?>selected<?php endif; ?> value="<?php echo $row->getId(); ?>"><?php echo $this->escapeHtml($row->getCategory()); ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+              <div class="col-auto">
+                <select class="form-control mb-2" name="search_brand_id">
+                  <option value="">All Brands</option>
+                  <?php foreach ($this->optionBrands as $row): ?>
+                  <option <?php if($this->search_brand_id == $row['id']): ?>selected<?php endif; ?> value="<?php echo $row['id']; ?>"><?php echo $this->escapeHtml($row['brand']); ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+              <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-2">Submit</button>
+              </div>
+            </div>
+            <?php /* if(!empty($this->currentCity) && !empty($this->currentCountry)): ?>
+            <strong>You are currently at:</strong> <?php echo $this->escapeHtml($this->currentCity); ?>, <?php echo $this->escapeHtml($this->currentCountry); ?>
+            <?php endif; */ ?>
+          </form>
+        </div>
+
+        <?php echo $this->content; ?>
+
+        <footer class="pt-4 my-md-5 pt-md-5 border-top">
+          <div class="row">
+            <div class="col-6 col-md">
+              <h5>Features</h5>
+              <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Proximity Search</a></li>
+                <li><a class="text-muted" href="#">Social Logins</a></li>
+                <li><a class="text-muted" href="#">Virtual Reality</a></li>
+                <li><a class="text-muted" href="#">Build Your Own Store</a></li>
+                <li><a class="text-muted" href="#">Buy Credits</a></li>
+              </ul>
+            </div>
+            <div class="col-6 col-md">
+              <h5>Members</h5>
+              <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Cool stuff</a></li>
+                <li><a class="text-muted" href="#">Random feature</a></li>
+                <li><a class="text-muted" href="#">Team feature</a></li>
+                <li><a class="text-muted" href="#">Stuff for developers</a></li>
+                <li><a class="text-muted" href="#">Another one</a></li>
+                <li><a class="text-muted" href="#">Last time</a></li>
+              </ul>
+            </div>
+            <div class="col-6 col-md">
+              <h5>Partners</h5>
+              <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Resource</a></li>
+                <li><a class="text-muted" href="#">Resource name</a></li>
+                <li><a class="text-muted" href="#">Another resource</a></li>
+                <li><a class="text-muted" href="#">Final resource</a></li>
+              </ul>
+            </div>
+            <div class="col-6 col-md">
+              <h5>About</h5>
+              <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Team</a></li>
+                <li><a class="text-muted" href="#">Locations</a></li>
+                <li><a class="text-muted" href="#">Privacy</a></li>
+                <li><a class="text-muted" href="#">Terms</a></li>
+              </ul>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <div class="py-5 bg-dark">
+        <div class="container">
+          <p class="m-0 text-center">Copyright &copy; Gigamike 2019  <a href="<?php echo $this->url('terms-of-use'); ?>">Terms of use</a> | <a href="<?php echo $this->url('privacy-policy'); ?>">Privacy Policy</a></p>
+        </div>
+      </div>
+        <?php echo $this->headScript()
+        ->prependFile($this->basePath() . '/js/api.js')
+          ->prependFile($this->basePath() . '/js/blink.js')
+          ->prependFile($this->basePath() . '/vendor/jCapSlide/jquery.capSlide.js')
+            ->prependFile($this->basePath() . '/vendor/9bitStudios-flexisel-f86b2ef/js/jquery.flexisel.js')
+            ->prependFile($this->basePath() . '/vendor/bootstrap/js/bootstrap.bundle.min.js')
+            ->prependFile($this->basePath() . '/vendor/jquery/jquery.min.js')
+        ; ?>
+        <?php if($this->route == 'home'): ?>
+        <script type="text/javascript">
+        $( document ).ready(function() {
+          $("#flexiselDemo1").flexisel({visibleItems:5,itemsToScroll:1,autoPlay:{enable:!0,interval:5e3,pauseOnHover:!0}});
+          $(".capslide_img_cont").capslide({caption_color:"white",caption_bgcolor:"black",overlay_bgcolor:"black",border:"",showcaption:!1});
+          $('.carousel').carousel({
+            interval: 5000
+          });
+          $('.carousel').carousel('cycle');
+        });
+        </script>
+      <?php endif; ?>
+<a id="cd-top" onclick="topFunction()" href="javascript:void(0)">Top</a>
+<script>function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?document.getElementById("cd-top").style.display="block":document.getElementById("cd-top").style.display="none"}function topFunction(){$("html, body").stop().animate({scrollTop:0},500,"swing",function(){})}window.onscroll=function(){scrollFunction()};</script>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/59eaf2b94854b82732ff6d20/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>

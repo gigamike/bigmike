@@ -1,0 +1,108 @@
+<!-- Page Heading/Breadcrumbs -->
+<h1 class="mt-4 mb-3">Contact
+  <small>Us</small>
+</h1>
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="<?php echo $this->url('home'); ?>">Home</a>
+  </li>
+  <li class="breadcrumb-item active">Contact</li>
+</ol>
+
+<!-- Content Row -->
+<div class="row">
+  <!-- Map Column -->
+  <div class="col-lg-8 mb-4">
+    <?php
+    $flash = $this->flashMessenger();
+    $flash->setMessageOpenFormat('<div%s role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        ')
+        ->setMessageSeparatorString('')
+        ->setMessageCloseString('</div>');
+
+    echo $flash->render('error',   array('alert', 'alert-dismissible', 'alert-danger'));
+    echo $flash->render('info',    array('alert', 'alert-dismissible', 'alert-info'));
+    echo $flash->render('default', array('alert', 'alert-dismissible', 'alert-warning'));
+    echo $flash->render('success', array('alert', 'alert-dismissible', 'alert-success'));
+     ?>
+    <!-- Embedded Google Map -->
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30894.231055388413!2d121.01568020577362!3d14.55463358778182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c90264a0ed01%3A0x2b066ed57830cace!2sMakati%2C+Metro+Manila!5e0!3m2!1sen!2sph!4v1537142004746" width="100%" height="400px" frameborder="0" style="border:0" allowfullscreen></iframe>
+  </div>
+  <!-- Contact Details Column -->
+  <div class="col-lg-4 mb-4">
+    <h3>Contact Details</h3>
+    <p>
+      <br>Makati, Philippines
+      <br>
+    </p>
+    <p>
+      <abbr title="Phone">P</abbr>: +639086087306
+    </p>
+    <p>
+      <abbr title="Email">E</abbr>:
+      <a href="mailto:gigamike@gigamike.net">gigamike@gigamike.net
+      </a>
+    </p>
+    <p>
+      <abbr title="Hours">H</abbr>: Monday - Friday: 9:00 AM to 5:00 PM
+    </p>
+  </div>
+</div>
+<!-- /.row -->
+
+<div class="row">
+  <div class="col-lg-8 mb-4">
+    <h3>Send us a Message</h3>
+    <?php
+    $form->setAttribute('action', $this->url('contact'));
+    $form->setAttribute('id', 'contactForm');
+    $form->setAttribute('name', 'sentMessage');
+    $form->prepare();
+    echo $this->form()->openTag($form);
+    ?>
+      <?= $this->formElement($form->get('security')) ?>
+      <div class="control-group form-group">
+        <div class="controls">
+          <?= $this->formLabel($form->get('name')) ?>
+          <?= $this->formElement($form->get('name')) ?>
+          <?= $this->formElementErrors()->render($form->get('name'), ['class' => 'help-block']) ?>
+          <p class="help-block"></p>
+        </div>
+      </div>
+      <div class="control-group form-group">
+        <div class="controls">
+          <?= $this->formLabel($form->get('phone')) ?>
+          <?= $this->formElement($form->get('phone')) ?>
+          <?= $this->formElementErrors()->render($form->get('phone'), ['class' => 'help-block']) ?>
+        </div>
+      </div>
+      <div class="control-group form-group">
+        <div class="controls">
+          <?= $this->formLabel($form->get('email')) ?>
+          <?= $this->formElement($form->get('email')) ?>
+          <?= $this->formElementErrors()->render($form->get('email'), ['class' => 'help-block']) ?>
+        </div>
+      </div>
+      <div class="control-group form-group">
+        <div class="controls">
+          <?= $this->formLabel($form->get('message')) ?>
+          <?= $this->formElement($form->get('message')) ?>
+          <?= $this->formElementErrors()->render($form->get('message'), ['class' => 'help-block']) ?>
+        </div>
+      </div>
+      <div class="control-group form-group">
+        <div class="controls">
+          <?= $this->formLabel($form->get('captcha')) ?>
+          <?= $this->formElement($form->get('captcha')) ?>
+          <?= $this->formElementErrors()->render($form->get('captcha'), ['class' => 'help-block']) ?>
+        </div>
+      </div>
+      <?php echo $this->formSubmit($form->get('submit')); ?>
+    <?php echo $this->form()->closeTag();?>
+  </div>
+
+</div>

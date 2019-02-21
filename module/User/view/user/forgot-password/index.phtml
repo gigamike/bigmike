@@ -1,0 +1,64 @@
+<!-- Page Heading/Breadcrumbs -->
+<h1 class="mt-4 mb-3">Forgot Password
+  <small>Subheading</small>
+</h1>
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="<?php echo $this->url('home'); ?>">Home</a>
+  </li>
+  <li class="breadcrumb-item active">Forgot Password</li>
+</ol>
+
+<div class="row">
+  <div class="col-lg-8 mb-4">
+
+    <?php
+    $flash = $this->flashMessenger();
+    $flash->setMessageOpenFormat('<div%s role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        ')
+        ->setMessageSeparatorString('')
+        ->setMessageCloseString('</div>');
+
+    echo $flash->render('error',   array('alert', 'alert-dismissible', 'alert-danger'));
+    echo $flash->render('info',    array('alert', 'alert-dismissible', 'alert-info'));
+    echo $flash->render('default', array('alert', 'alert-dismissible', 'alert-warning'));
+    echo $flash->render('success', array('alert', 'alert-dismissible', 'alert-success'));
+     ?>
+
+    <div class="card card-register mx-auto">
+      <div class="card-header">Forgot Password</div>
+      <div class="card-body">
+        <?php
+        $form->setAttribute('action', $this->url('forgot-password'));
+        $form->setAttribute('id', 'forgotPassword');
+        $form->setAttribute('name', 'forgotPassword');
+        $form->prepare();
+        echo $this->form()->openTag($form);
+        ?>
+          <div class="form-group">
+            <div class="form-label-group">
+              <?= $this->formElement($form->get('email')) ?>
+              <?= $this->formLabel($form->get('email')) ?>
+              <?= $this->formElementErrors()->render($form->get('email'), ['class' => 'help-block']) ?>
+            </div>
+          </div>
+          <?php echo $this->formSubmit($form->get('submit')); ?>
+        <?php echo $this->form()->closeTag();?>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="<?php echo $this->url('login'); ?>">Login</a>
+          <a class="d-block small" href="<?php echo $this->url('registration'); ?>">Registration</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 mb-4">
+    <h3>Forgot Password</h3>
+    <p>
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    </p>
+  </div>
+</div>

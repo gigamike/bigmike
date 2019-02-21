@@ -1,0 +1,88 @@
+<!-- Page Heading/Breadcrumbs -->
+<h1 class="mt-4 mb-3">API
+  <small>How To</small>
+</h1>
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="<?php echo $this->url('home'); ?>">Home</a>
+  </li>
+  <li class="breadcrumb-item active">API</li>
+</ol>
+
+<div class="mb-4" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="card">
+    <div class="card-header" role="tab" id="headingOne">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">GET Search</a>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+      <div class="card-body">
+        <strong>Endpoint:</strong> <?php echo $this->config['baseUrl']; ?>api/search<br>
+        <strong>GET Parameters:</strong>
+        <ul>
+          <li><strong>access_key</strong> - required, Access Key.</li>
+          <li><strong>access_key_secret</strong> - required, Access Key Secret.</li>
+          <li><strong>category_id</strong> - optional, Category ID
+            <br>
+            <ul>
+              <?php foreach ($categories as $row): ?>
+              <li><strong><?php echo $row->getId(); ?></strong> - <?php echo $row->getCategory(); ?></li>
+              <?php endforeach; ?>
+            </ul>
+          </li>
+          <li><strong>brand_id</strong> - optional, Brand ID<br>
+          <ul>
+            <?php foreach ($brands as $row): ?>
+            <li><strong><?php echo $row->getId(); ?></strong> - <?php echo $row->getBrand(); ?></li>
+            <?php endforeach; ?>
+          </ul></li>
+          <li><strong>keyword</strong> - optional, Product Name Keyword</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="card">
+    <div class="card-header" role="tab" id="headingTwo">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">POST Cart Add</a>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="card-body">
+        <strong>Endpoint:</strong> <?php echo $this->config['baseUrl']; ?>api/cart-add<br>
+        <strong>POST Parameters:</strong>
+        <ul>
+          <li><strong>access_key</strong> - required, Access Key.</li>
+          <li><strong>access_key_secret</strong> - required, Access Key Secret.</li>
+          <li><strong>user_id</strong> - required, User ID. Coming from email authentication.</li>
+          <li><strong>product_id</strong> - required, Product ID</li>
+          <li><strong>quantity</strong> - required, Quantity of order</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="card">
+    <div class="card-header" role="tab" id="headingThree">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">GET/DELETE Cart Delete</a>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="card-body">
+        <strong>Endpoint:</strong> <?php echo $this->config['baseUrl']; ?>api/cart-delete<br>
+        <strong>POST Parameters:</strong>
+        <ul>
+          <li><strong>access_key</strong> - required, Access Key.</li>
+          <li><strong>access_key_secret</strong> - required, Access Key Secret.</li>
+          <li><strong>user_id</strong> - required, User ID. Coming from email authentication.</li>
+          <li><strong>product_id</strong> - required, Product ID</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,313 @@
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+<!-- Page Heading/Breadcrumbs -->
+<h1 class="mt-4 mb-3">Buy Credits
+  <small>Pricing</small>
+</h1>
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="<?php echo $this->url('home'); ?>">Home</a>
+  </li>
+  <li class="breadcrumb-item active">Buy Credits</li>
+</ol>
+
+<?php if(count($this->user) > 0): ?>
+<div class="alert alert-info" role="alert">
+  <h4 class="alert-heading">Hi <?php echo $this->escapehtml($this->user->getFirstname()); ?> <?php echo $this->escapehtml($this->user->getLastname()); ?></h4>
+  <p>Your current balance is: <?php if(is_null($this->user->getCredits())): ?>₱0.00<?php else: ?>₱<?php echo number_format($this->user->getCredits(), 2, '.',','); ?><?php endif; ?></p>
+  <hr>
+  <p class="mb-0">If you need help please <a href="<?php echo $this->url('contact'); ?>">contact us</a></p>
+</div>
+<?php endif; ?>
+
+<!-- Content Row -->
+<div class="row">
+  <div class="col-lg-4 mb-4">
+    <div class="card h-100">
+      <h3 class="card-header">Basic</h3>
+      <div class="card-body">
+        <div class="display-4">₱1,000</div>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><i class="fas fa-plus"></i> Get Additional ₱100.00</li>
+        <li class="list-group-item"><i class="fas fa-money-bill"></i> Total of ₱1,100.00</li>
+        <li class="list-group-item"><i class="fas fa-headset"></i> 24/7 Support</li>
+        <?php if ($user = $this->identity()): ?>
+          <li class="list-group-item text-center">
+            <div id="paypal-button-container1000"></div>
+          </li>
+          <li class="list-group-item text-center">
+            <form action="https://bitpay.com/checkout" method="post" >
+              <input type="hidden" name="action" value="checkout" />
+              <input type="hidden" name="posData" value="" />
+              <input type="hidden" name="data" value="acCKY75A5wgE6V3gpUwoXIT1GdRSi513sbSFSIfvgDZfVpyWFHB6PSr3zNpPL9B91tupAuLHn8dZWyP5I/0O7lkJIN++VWDOne8v2n65TFcTIcbDCjbIZU/Sj9UcRGg4Clyu8J92LHKzg0eAWSOAq5q1ZcluIeezDWE99MKIrnLb0w0S7KpC94cxdONWUpFSocg/4IlBpV3lgPc/Tv9SIV5IUwzWOFRrJ07L7fo4ItNX9Z5xJdSePrE5D5+RtWTb" />
+              <input type="image" src="https://bitpay.com/img/button8.png" border="0" name="submit" alt="BitPay, the easy way to pay with bitcoins." >
+            </form>
+          </li>
+          <li class="list-group-item text-center">
+            <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX&choe=UTF-8"><br>
+            <br><strong>Bitcoin Address:</strong> 1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX
+          </li>
+        <?php else: ?>
+          <li class="list-group-item">
+            <a href="<?php echo $this->url('registration'); ?>" class="cartButton">Sign Up!</a>
+          </li>
+          <?php endif; ?>
+      </ul>
+    </div>
+  </div>
+  <div class="col-lg-4 mb-4">
+    <div class="card card-outline-primary h-100">
+      <h3 class="card-header bg-primary text-white">Plus</h3>
+      <div class="card-body">
+        <div class="display-4">₱5,000</div>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><i class="fas fa-plus"></i> Get Additional ₱500.00</li>
+        <li class="list-group-item"><i class="fas fa-money-bill"></i> Total of ₱5,500.00</li>
+        <li class="list-group-item"><i class="fas fa-headset"></i> 24/7 Support</li>
+        <?php if ($user = $this->identity()): ?>
+          <li class="list-group-item text-center">
+            <div id="paypal-button-container5000"></div>
+          </li>
+          <li class="list-group-item text-center">
+            <form action="https://bitpay.com/checkout" method="post" >
+              <input type="hidden" name="action" value="checkout" />
+              <input type="hidden" name="posData" value="" />
+              <input type="hidden" name="data" value="acCKY75A5wgE6V3gpUwoXIT1GdRSi513sbSFSIfvgDZfVpyWFHB6PSr3zNpPL9B91tupAuLHn8dZWyP5I/0O7oOLO3epeaIMX2SivYVtRvcPzuT3miu7x0uoIHlttn98OL5NSkr/41xE987jXbHf5d53f1g9BpNNKCBfkUnIOil09yNvIzbrweYp0yLzQFGs//O+QXj6UGgv/ajPEk3Yj1fpz8PhJ12WeW6zx40wMMt+1sQeI3Gsu4pOXlzxyhei" />
+              <input type="image" src="https://bitpay.com/img/button8.png" border="0" name="submit" alt="BitPay, the easy way to pay with bitcoins." >
+            </form>
+          </li>
+          <li class="list-group-item text-center">
+            <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX&choe=UTF-8"><br>
+            <br><strong>Bitcoin Address:</strong> 1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX
+          </li>
+        <?php else: ?>
+          <li class="list-group-item">
+            <a href="<?php echo $this->url('registration'); ?>" class="cartButton">Sign Up!</a>
+          </li>
+          <?php endif; ?>
+      </ul>
+    </div>
+  </div>
+  <div class="col-lg-4 mb-4">
+    <div class="card h-100">
+      <h3 class="card-header">Custom</h3>
+      <div class="card-body">
+        <div class="display-4">₱10,000</div>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><i class="fas fa-plus"></i> Get Additional ₱1000.00</li>
+        <li class="list-group-item"><i class="fas fa-money-bill"></i> Total of ₱11,000.00</li>
+        <li class="list-group-item"><i class="fas fa-headset"></i> 24/7 Support</li>
+        <?php if ($user = $this->identity()): ?>
+          <li class="list-group-item text-center">
+            <div id="paypal-button-container10000"></div>
+          </li>
+          <li class="list-group-item text-center">
+            <form action="https://bitpay.com/checkout" method="post" >
+              <input type="hidden" name="action" value="checkout" />
+              <input type="hidden" name="posData" value="" />
+              <input type="hidden" name="data" value="acCKY75A5wgE6V3gpUwoXIT1GdRSi513sbSFSIfvgDZfVpyWFHB6PSr3zNpPL9B91tupAuLHn8dZWyP5I/0O7oOLO3epeaIMX2SivYVtRvcPzuT3miu7x0uoIHlttn98OL5NSkr/41xE987jXbHf5d53f1g9BpNNKCBfkUnIOil09yNvIzbrweYp0yLzQFGs//O+QXj6UGgv/ajPEk3Yj1fpz8PhJ12WeW6zx40wMMt+1sQeI3Gsu4pOXlzxyhei" />
+              <input type="image" src="https://bitpay.com/img/button8.png" border="0" name="submit" alt="BitPay, the easy way to pay with bitcoins." >
+            </form>
+          </li>
+          <li class="list-group-item text-center">
+            <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX&choe=UTF-8">
+            <br><br><strong>Bitcoin Address:</strong> 1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX
+          </li>
+        <?php else: ?>
+          <li class="list-group-item">
+            <a href="<?php echo $this->url('registration'); ?>" class="cartButton">Sign Up!</a>
+          </li>
+          <?php endif; ?>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- /.row -->
+
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+<script>
+  // Render the PayPal button
+  paypal.Button.render({
+    // Set your environment
+    env: 'sandbox', // sandbox | production
+    // Specify the style of the button
+    style: {
+      layout: 'vertical',  // horizontal | vertical
+      size:   'medium',    // medium | large | responsive
+      shape:  'rect',      // pill | rect
+      color:  'gold'       // gold | blue | silver | black
+    },
+    // Specify allowed and disallowed funding sources
+    //
+    // Options:
+    // - paypal.FUNDING.CARD
+    // - paypal.FUNDING.CREDIT
+    // - paypal.FUNDING.ELV
+
+    funding: {
+      allowed: [ paypal.FUNDING.CARD, paypal.FUNDING.CREDIT ],
+      disallowed: [ ]
+    },
+
+    // PayPal Client IDs - replace with your own
+    // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+
+    client: {
+        sandbox:    'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+        production: '<insert production client id>'
+    },
+
+    payment: function(data, actions) {
+      return actions.payment.create({
+        payment: {
+          transactions: [
+            {
+              amount: { total: '1000.00', currency: 'PHP' }
+            }
+          ]
+        }
+      });
+    },
+
+    // onAuthorize() is called when the buyer approves the payment
+    onAuthorize: function(data, actions) {
+      // Set up a url on your server to execute the payment
+      var EXECUTE_URL = '/cart/paypal-api';
+
+      // Set up the data you need to pass to your server
+      var data = {
+        amount:1000,
+        userid:'<?php echo $this->identity()->id; ?>'
+      };
+      // Make a call to your server to execute the payment
+      return paypal.request.post(EXECUTE_URL, data)
+          .then(function (res) {
+              window.alert('Payment Complete!');
+              location.reload();
+          });
+    }
+}, '#paypal-button-container1000');
+</script>
+<script>
+  // Render the PayPal button
+  paypal.Button.render({
+    // Set your environment
+    env: 'sandbox', // sandbox | production
+    // Specify the style of the button
+    style: {
+      layout: 'vertical',  // horizontal | vertical
+      size:   'medium',    // medium | large | responsive
+      shape:  'rect',      // pill | rect
+      color:  'gold'       // gold | blue | silver | black
+    },
+    // Specify allowed and disallowed funding sources
+    //
+    // Options:
+    // - paypal.FUNDING.CARD
+    // - paypal.FUNDING.CREDIT
+    // - paypal.FUNDING.ELV
+    funding: {
+        allowed: [ paypal.FUNDING.CARD, paypal.FUNDING.CREDIT ],
+        disallowed: [ ]
+    },
+    // PayPal Client IDs - replace with your own
+    // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+    client: {
+        sandbox:    'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+        production: '<insert production client id>'
+    },
+    payment: function(data, actions) {
+      return actions.payment.create({
+        payment: {
+          transactions: [
+            {
+              amount: { total: '5000', currency: 'PHP' }
+            }
+          ]
+        }
+      });
+    },
+
+    // onAuthorize() is called when the buyer approves the payment
+    onAuthorize: function(data, actions) {
+      // Set up a url on your server to execute the payment
+      var EXECUTE_URL = '/cart/paypal-api';
+
+      // Set up the data you need to pass to your server
+      var data = {
+        amount:5000,
+        userid:'<?php echo $this->identity()->id; ?>'
+      };
+      // Make a call to your server to execute the payment
+      return paypal.request.post(EXECUTE_URL, data)
+          .then(function (res) {
+              window.alert('Payment Complete!');
+              location.reload();
+          });
+    }
+  }, '#paypal-button-container5000');
+</script>
+<script>
+  // Render the PayPal button
+  paypal.Button.render({
+    // Set your environment
+    env: 'sandbox', // sandbox | production
+    // Specify the style of the button
+    style: {
+      layout: 'vertical',  // horizontal | vertical
+      size:   'medium',    // medium | large | responsive
+      shape:  'rect',      // pill | rect
+      color:  'gold'       // gold | blue | silver | black
+    },
+    // Specify allowed and disallowed funding sources
+    //
+    // Options:
+    // - paypal.FUNDING.CARD
+    // - paypal.FUNDING.CREDIT
+    // - paypal.FUNDING.ELV
+    funding: {
+        allowed: [ paypal.FUNDING.CARD, paypal.FUNDING.CREDIT ],
+        disallowed: [ ]
+    },
+    // PayPal Client IDs - replace with your own
+    // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+    client: {
+        sandbox:    'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+        production: '<insert production client id>'
+    },
+    payment: function(data, actions) {
+      return actions.payment.create({
+        payment: {
+          transactions: [
+            {
+              amount: { total: '10000', currency: 'PHP' }
+            }
+          ]
+        }
+      });
+    },
+
+    // onAuthorize() is called when the buyer approves the payment
+    onAuthorize: function(data, actions) {
+      // Set up a url on your server to execute the payment
+      var EXECUTE_URL = '/cart/paypal-api';
+
+      // Set up the data you need to pass to your server
+      var data = {
+        amount:10000,
+        userid:'<?php echo $this->identity()->id; ?>'
+      };
+      // Make a call to your server to execute the payment
+      return paypal.request.post(EXECUTE_URL, data)
+          .then(function (res) {
+              window.alert('Payment Complete!');
+              location.reload();
+          });
+    }
+  }, '#paypal-button-container10000');
+</script>

@@ -1,77 +1,64 @@
-ZendSkeletonApplication
-=======================
+﻿Executive Summary 
 
-Introduction
-------------
-This is a simple, skeleton application using the ZF2 MVC layer and module
-systems. This application is meant to be used as a starting place for those
-looking to get their feet wet with ZF2.
+• Explain what the proposed application does and how it works. 
 
-Installation
-------------
+- We chose HealthTech category, health recommendations using a chatbot interface. We created an app called “Big Mike” your personal trainer powered by Alexa.
 
-Using Composer (recommended)
-----------------------------
-The recommended way to get a working copy of this project is to clone the repository
-and use `composer` to install dependencies using the `create-project` command:
+- The problem we are trying to solve are as follows:
 
-    curl -s https://getcomposer.org/installer | php --
-    php composer.phar create-project -sdev --repository-url="https://packages.zendframework.com" zendframework/skeleton-application path/to/install
+    • Personal Trainer Availability.
+        ◦ Unhealthy person doesn’t know where to start. 
+        ◦ “What/How“ gym programs. 
+        ◦ What kind of food to eat or diet? 
+    • No 24 hours trainer. 
+    • Lack of Nutrition Facts Label. 
+    • Lack of information about supplements.
 
-Alternately, clone the repository and manually invoke `composer` using the shipped
-`composer.phar`:
+- ”Big Mike” app features are as follows:
+    • Health check
+        ◦ Food and diet recommendations.
+        ◦ Gym program recommendations.
+    • Nutrition Facts voice assistant.
+    • Order supplements online.
 
-    cd my/project/dir
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git
-    cd ZendSkeletonApplication
-    php composer.phar self-update
-    php composer.phar install
+• Explain the business application for the Team’s proposed application. 
 
-(The `self-update` directive is to ensure you have an up-to-date `composer.phar`
-available.)
+”Big Mike” app recommend what kind of diet or food to eat, gym program and what supplement to take. User can order online through web or by voice assistant.
 
-Another alternative for downloading the project is to grab it via `curl`, and
-then pass it to `tar`:
+• Explain what makes the Team’s proposed application unique. 
 
-    cd my/project/dir
-    curl -#L https://github.com/zendframework/ZendSkeletonApplication/tarball/master | tar xz --strip-components=1
+- What makes “Big Mike“ app unique is that its not just a web app but also an Alexa Skills app.
 
-You would then invoke `composer` to install dependencies per the previous
-example.
+• Describe how the proposed application integrates at least one of the AWS Services. 
 
-Using Git submodules
---------------------
-Alternatively, you can install using native git submodules:
+- We used the following AWS Services:
+    • Alexa
+    • Lambda – Alexa skills NodeJS
+    • AWS EC2 – LAMP Stack
+    • RDS – MySQL database
+    • Route53 – DNS for web https://aws2019.gigamike.net/
+    • S3 – Images and video training storage
+    • Cloudfront – Images and video training storage
 
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git --recursive
+• Describe each Team member including their core expertise & technical skills and experience using AWS Services and experience in participating in hackathons.
 
-Web Server Setup
-----------------
+Team Gigamike.net
 
-### PHP CLI Server
-
-The simplest way to get started if you are using PHP 5.4 or above is to start the internal PHP cli-server in the root directory:
-
-    php -S 0.0.0.0:8080 -t public/ public/index.php
-
-This will start the cli-server on port 8080, and bind it to all network
-interfaces.
-
-**Note: ** The built-in CLI server is *for development only*.
-
-### Apache Setup
-
-To setup apache, setup a virtual host to point to the public/ directory of the
-project and you should be ready to go! It should look something like below:
-
-    <VirtualHost *:80>
-        ServerName zf2-tutorial.localhost
-        DocumentRoot /path/to/zf2-tutorial/public
-        SetEnv APPLICATION_ENV "development"
-        <Directory /path/to/zf2-tutorial/public>
-            DirectoryIndex index.php
-            AllowOverride All
-            Order allow,deny
-            Allow from all
-        </Directory>
-    </VirtualHost>
+    • Mik “Big Mike” Galon
+        ◦ Team Lead
+        ◦ Full Stack Web Developer
+        ◦ Certified AWS Solutions Architect
+        ◦ Zend Certified Engineer
+        ◦ Zend Framework Certified Engineer
+        ◦ Alexa Skills Developer
+        ◦ Personal Gym Trainer
+    • Jays Esporna
+        ◦ Web Developer
+        ◦ Front End Designer
+    • Amah Buenaventura, CPA, MBA
+        ◦ Financial Manager
+        ◦ Entrepreneur
+        ◦ Documentation
+        ◦ Auditing of AWS expenses.
+    • Ace Mark Llentada
+        ◦ Backend

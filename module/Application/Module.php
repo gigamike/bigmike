@@ -47,9 +47,8 @@ class Module
           if (substr($routeMatch->getMatchedRouteName(), 0, 5) == 'admin') {
               $controller->layout('layout/admin-layout');
           }
-          if (substr($routeMatch->getMatchedRouteName(), 0, 8) == 'supplier'
-              && substr($routeMatch->getMatchedRouteName(), 0, 21) != 'supplier-registration') {
-              $controller->layout('layout/supplier-layout');
+          if (substr($routeMatch->getMatchedRouteName(), 0, 7) == 'chatbot') {
+              $controller->layout('layout/chatbot-layout');
           }
 
           $application = $e->getApplication();

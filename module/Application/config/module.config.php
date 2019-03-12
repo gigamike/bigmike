@@ -397,6 +397,21 @@ return array(
                     ),
                 ),
             ),
+            'chatbot' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route'    => '/chatbot[/:action][/:id][/search_by/:search_by]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                        'search_by' => '.*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Chatbot\Controller\Index',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them

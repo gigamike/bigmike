@@ -17,6 +17,8 @@
         "league/oauth2-linkedin": "^4.1",
         "stevenmaguire/oauth2-microsoft": "^2.2",
         "geoip2/geoip2": "~2.0",
-        "gumlet/php-image-resize": "1.9.*"
+        "gumlet/php-image-resize": "1.9.*",
+        "botman/botman": "^2.4",
+        "botman/driver-web": "^1.5"
     }
 }

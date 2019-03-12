@@ -218,6 +218,7 @@
         </div>
       </div>
         <?php echo $this->headScript()
+        ->prependFile('https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/chat.js')
         ->prependFile($this->basePath() . '/js/api.js')
           ->prependFile($this->basePath() . '/js/blink.js')
           ->prependFile($this->basePath() . '/vendor/jCapSlide/jquery.capSlide.js')
@@ -237,21 +238,21 @@
         });
         </script>
       <?php endif; ?>
-<a id="cd-top" onclick="topFunction()" href="javascript:void(0)">Top</a>
-<script>function scrollFunction(){document.body.scrollTop>20||document.documentElement.scrollTop>20?document.getElementById("cd-top").style.display="block":document.getElementById("cd-top").style.display="none"}function topFunction(){$("html, body").stop().animate({scrollTop:0},500,"swing",function(){})}window.onscroll=function(){scrollFunction()};</script>
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/59eaf2b94854b82732ff6d20/default';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
+
+<script>
+var botmanWidget = {
+    chatServer: '/chatbot/server',
+    frameEndpoint: '/chatbot',
+    title: 'Coach Big Mike',
+    mainColor: '#ffcc00',
+    bubbleBackground: '#ffcc00',
+    aboutLink: 'https://www.gigamike.net/',
+    aboutText: 'Powered By GigaMike',
+    introMessage: 'Welcome to the Big Mike, your personal fitness coach by team Gigamike. Do you want to check if your weight is healthy? just say get my body mass index. Or ask about food nutrition facts. Example, by saying nutrition facts for rice. Or order supplements online by saying, add Enervon C.',
+};
 </script>
-<!--End of Tawk.to Script-->
+<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+
         <?php echo $this->inlineScript() ?>
     </body>
 </html>

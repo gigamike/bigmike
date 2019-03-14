@@ -199,7 +199,6 @@ class IndexController extends AbstractActionController
 				$cart->setProductId($product->getId());
 				$cart->setQuantity($quantity);
 				$cart->setCreatedUserId($user->getId());
-				$cart->setProductId($product->getId());
 				$this->getCartMapper()->save($cart);
 			}
 

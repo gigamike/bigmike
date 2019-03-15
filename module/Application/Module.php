@@ -45,10 +45,10 @@ class Module
           $controller = $e->getTarget();
           $action = $routeMatch->getParam('action');
           if (substr($routeMatch->getMatchedRouteName(), 0, 5) == 'admin') {
-              $controller->layout('layout/admin-layout');
+            $controller->layout('layout/admin-layout');
           }
           if (substr($routeMatch->getMatchedRouteName(), 0, 7) == 'chatbot') {
-              $controller->layout('layout/chatbot-layout');
+            $controller->layout('layout/chatbot-layout');
           }
 
           $application = $e->getApplication();

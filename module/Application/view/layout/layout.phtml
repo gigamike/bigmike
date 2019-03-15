@@ -57,13 +57,7 @@
               </li>
               <?php endif; ?>
               <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-weight"></i> BMI</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-dumbbell"></i> Gym</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-utensils"></i> Nutrition Facts</a>
+                <a class="nav-link" href="<?php echo $this->url('incentives'); ?>"><i class="fas fa-trophy"></i> Incentives</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="<?php echo $this->url('api'); ?>"><i class="fas fa-robot"></i> API</a>
@@ -173,11 +167,11 @@
             <div class="col-6 col-md">
               <h5>Features</h5>
               <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Proximity Search</a></li>
-                <li><a class="text-muted" href="#">Social Logins</a></li>
-                <li><a class="text-muted" href="#">Virtual Reality</a></li>
-                <li><a class="text-muted" href="#">Build Your Own Store</a></li>
-                <li><a class="text-muted" href="#">Buy Credits</a></li>
+                <li><a class="text-muted" href="#">Body Mass Index</a></li>
+                <li><a class="text-muted" href="#">Gym Program</a></li>
+                <li><a class="text-muted" href="#">Nutrition Facts</a></li>
+                <li><a class="text-muted" href="<?php echo $this->url('cart', array('action' => 'buy-credits')); ?>">Buy Credits</a></li>
+                <li><a class="text-muted" href="<?php echo $this->url('api'); ?>">API</a></li>
               </ul>
             </div>
             <div class="col-6 col-md">
@@ -214,7 +208,7 @@
       </div>
       <div class="py-5 bg-dark">
         <div class="container">
-          <p class="m-0 text-center">Copyright &copy; Gigamike 2019  <a href="<?php echo $this->url('terms-of-use'); ?>">Terms of use</a> | <a href="<?php echo $this->url('privacy-policy'); ?>">Privacy Policy</a></p>
+          <p class="m-0 text-center">Copyright &copy; Gigamike 2019  <a href="<?php echo $this->url('terms-of-use'); ?>">Terms of use</a> | <a href="<?php echo $this->url('privacy-policy'); ?>">Privacy Policy</a> | <a href="<?php echo $this->url('api'); ?>">API</a></p>
         </div>
       </div>
         <?php echo $this->headScript()

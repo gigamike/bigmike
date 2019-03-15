@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 21, 2019 at 08:47 AM
--- Server version: 5.7.23
--- PHP Version: 7.0.32
+-- Generation Time: Mar 14, 2019 at 10:43 PM
+-- Server version: 5.6.41-84.1
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `aws2019`
+-- Database: `gigamike_aws2019`
 --
 
 -- --------------------------------------------------------
@@ -78,6 +80,14 @@ CREATE TABLE `cart` (
   `created_datetime` datetime NOT NULL,
   `created_user_id` bigint(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `product_id`, `quantity`, `created_datetime`, `created_user_id`) VALUES
+(1, 16, 1, '2019-02-17 12:48:42', 10),
+(2, 21, 1, '2019-02-17 12:49:01', 10);
 
 -- --------------------------------------------------------
 
@@ -382,6 +392,32 @@ INSERT INTO `country` (`id`, `country_code`, `country_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `incentive`
+--
+
+CREATE TABLE `incentive` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `height_centimeters` decimal(10,2) NOT NULL,
+  `weight_kilograms` decimal(10,2) NOT NULL,
+  `bmi` decimal(10,2) NOT NULL,
+  `bmi_category` varchar(255) NOT NULL,
+  `incentive` decimal(10,2) DEFAULT NULL,
+  `created_datetime` datetime NOT NULL,
+  `created_user_id` bigint(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `incentive`
+--
+
+INSERT INTO `incentive` (`id`, `height_centimeters`, `weight_kilograms`, `bmi`, `bmi_category`, `incentive`, `created_datetime`, `created_user_id`) VALUES
+(1, '142.00', '52.00', '25.80', 'Overweight', '0.00', '2019-01-01 00:00:00', 10),
+(2, '142.00', '50.00', '25.80', 'Normal weight', '10.00', '2019-02-01 00:00:00', 10),
+(3, '142.00', '52.00', '25.80', 'obese', '0.00', '2019-03-15 11:39:41', 10);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `product`
 --
 
@@ -542,6 +578,13 @@ ALTER TABLE `country`
   ADD KEY `country_name` (`country_name`);
 
 --
+-- Indexes for table `incentive`
+--
+ALTER TABLE `incentive`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_datetime` (`created_datetime`);
+
+--
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
@@ -599,7 +642,7 @@ ALTER TABLE `brand`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -612,6 +655,12 @@ ALTER TABLE `category`
 --
 ALTER TABLE `country`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=255;
+
+--
+-- AUTO_INCREMENT for table `incentive`
+--
+ALTER TABLE `incentive`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -636,6 +685,7 @@ ALTER TABLE `settings`
 --
 ALTER TABLE `user`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

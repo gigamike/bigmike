@@ -180,6 +180,24 @@ return array(
                     ),
                 ),
             ),
+            'incentives' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route'    => '/incentives[/:action][/:id][/page/:page][/search_by/:search_by]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                        'page' => '[0-9]+',
+                        'order_by' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'order' => 'ASC|DESC',
+                        'search_by' => '.*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Incentive\Controller\Index',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
             'microsoft' => array(
                 'type' => 'segment',
                 'options' => array(

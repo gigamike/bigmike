@@ -22,6 +22,7 @@ return array(
 		'cart',
 		'api',
 		'chatbot',
+		'incentives',
 	),
 	'supplier'=> array(
 		'supplier',

@@ -1,0 +1,58 @@
+<style>
+.red {
+  color:red;
+}
+.green {
+  color:green;
+}
+</style>
+
+<!-- Page Heading/Breadcrumbs -->
+<h1 class="mt-4 mb-3"><?php if ($user = $this->identity()): ?><?php echo $user->first_name; ?>'s<?php endif; ?>
+  <small>Activity Scores</small>
+</h1>
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="<?php echo $this->url('home'); ?>">Home</a>
+  </li>
+  <li class="breadcrumb-item active">Incentives</li>
+</ol>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">How to get incentives?</h4>
+      <p>Want to earn credits in our store? Just be healthy and always reach your goal.</p>
+      <div class="red"><i class="fas fa-thumbs-down"></i> Under weight</div>
+      <div class="green"><i class="fas fa-trophy"></i> Normal weight = +10 credits</div>
+      <div class="red"><i class="fas fa-thumbs-down"></i> Overweight</div>
+      <div class="red"><i class="fas fa-thumbs-down"></i> Obese</div>
+    </div>
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Month</th>
+          <th scope="col">Height (centimeters)</th>
+          <th scope="col">Weight (kilograms)</th>
+          <th scope="col">BMI</th>
+          <th scope="col">BMI Category</th>
+          <th scope="col">Incentives/Credits</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($this->incentives as $incentive): ?>
+        <tr <?php if($incentive['bmi_category']!='Normal weight'): ?>class="table-danger"<?php else: ?>class="table-success"<?php endif; ?>>
+          <th><?php echo date('M', strtotime($incentive['year'] . "-" . $incentive['month'] . "-1")); ?> <?php echo $incentive['year']; ?></th>
+          <td><?php echo $incentive['height_centimeters']; ?> centimeters</td>
+          <td><?php echo $incentive['weight_kilograms']; ?> kilograms</td>
+          <td><?php echo $incentive['bmi']; ?></td>
+          <td><?php echo $incentive['bmi_category']; ?></td>
+          <td><?php echo number_format($incentive['incentive'], 2); ?></td>
+        </tr>
+      <?php endforeach; ?>
+      </tbody>
+    </table>
+  </div>
+</div>

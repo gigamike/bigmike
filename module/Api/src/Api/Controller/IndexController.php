@@ -10,6 +10,7 @@ use Zend\Mail\Message;
 use Zend\Mail\Transport\Sendmail;
 
 use Cart\Model\CartEntity;
+use Incentive\Model\IncentiveEntity;
 
 class IndexController extends AbstractActionController
 {
@@ -42,6 +43,12 @@ class IndexController extends AbstractActionController
 		$sm = $this->getServiceLocator();
 		return $sm->get('CategoryMapper');
 	}
+
+	public function getIncentiveMapper()
+  {
+    $sm = $this->getServiceLocator();
+    return $sm->get('IncentiveMapper');
+  }
 
 	/*
 	* https://apitester.com/
@@ -310,6 +317,95 @@ class IndexController extends AbstractActionController
 		$response = $this->_getResponseWithHeader()->setContent(json_encode($results));
     return $response;
 		*/
+	}
+
+	/*
+	* http://aws2019.gigamike.net/api/bmi-add?user_id=10&height_centimeters=142&weight_kilograms=52&bmi=25.8&bmi_category=obese
+	*
+	*/
+	public function bmiAddAction()
+	{
+		$results = array();
+		$errors = array();
+
+		$config = $this->getServiceLocator()->get('Config');
+
+		$userId = $this->params()->fromQuery('user_id');
+		$height_centimeters = $this->params()->fromQuery('height_centimeters');
+		$weight_kilograms = $this->params()->fromQuery('weight_kilograms');
+		$bmi = $this->params()->fromQuery('bmi');
+		$bmi_category = $this->params()->fromQuery('bmi_category');
+
+		if(!$userId) {
+			$errors['user_id'] = 'Invalid User ID.';
+		}else{
+			$user = $this->getUserMapper()->getUser($userId);
+			if(!$user){
+				$errors['user_id'] = 'Invalid User ID.';
+			}
+		}
+
+		if(!$height_centimeters) {
+			$errors['height_centimeters'] = 'Invalid height in centimeters.';
+		}else if(!is_numeric($height_centimeters)){
+			$errors['height_centimeters'] = 'Invalid height in centimeters.';
+		}
+
+		if(!$weight_kilograms) {
+			$errors['weight_kilograms'] = 'Invalid weight in kilograms.';
+		}else if(!is_numeric($weight_kilograms)){
+			$errors['weight_kilograms'] = 'Invalid weight in kilograms.';
+		}
+
+		if(!$bmi) {
+			$errors['bmi'] = 'Invalid BMI.';
+		}else if(!is_numeric($bmi)){
+			$errors['bmi'] = 'Invalid BMI.';
+		}
+
+		if(!$bmi_category) {
+			$errors['bmi_category'] = 'Invalid BMI category.';
+		}
+
+		if($bmi_category == 'Normal weight'){
+			$credit = 10;
+		}else{
+			$credit = 0;
+		}
+
+		if(count($errors) <= 0){
+			$filter = array(
+				'created_user_id' => $user->getId(),
+				'month' => date('n'),
+				'year' => date('Y'),
+			);
+			$order = array();
+			$incentives = $this->getIncentiveMapper()->getIncentives(false, $filter, $order);
+			if(count($incentives) <= 0){
+				$incentive = new IncentiveEntity;
+				$incentive->setHeightCentimeters($height_centimeters);
+				$incentive->setWeightKilograms($weight_kilograms);
+				$incentive->setBmi($bmi);
+				$incentive->setBmiCategory($bmi_category);
+				$incentive->setIncentive($credit);
+				$incentive->setCreatedUserId($user->getId());
+				$this->getIncentiveMapper()->save($incentive);
+			}
+
+			if($credit){
+				$user->setCredits($credit);
+				$this->getUserMapper()->save($user);
+			}
+
+			$results['success'] = 'Success.';
+		}else{
+			foreach ($errors as $error) {
+				$results['error'] = $error;
+			}
+		}
+
+		$response = $this->_getResponseWithHeader()->setContent(json_encode($results));
+    return $response;
 	}
 
 	/*

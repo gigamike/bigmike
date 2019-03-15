@@ -43,7 +43,7 @@
       </thead>
       <tbody>
         <?php foreach ($this->incentives as $incentive): ?>
-        <tr <?php if($incentive['bmi_category']!='Normal weight'): ?>class="table-danger"<?php else: ?>class="table-success"<?php endif; ?>>
+        <tr <?php if($incentive['bmi_category']!='normal weight'): ?>class="table-danger"<?php else: ?>class="table-success"<?php endif; ?>>
           <th><?php echo date('M', strtotime($incentive['year'] . "-" . $incentive['month'] . "-1")); ?> <?php echo $incentive['year']; ?></th>
           <td><?php echo $incentive['height_centimeters']; ?> centimeters</td>
           <td><?php echo $incentive['weight_kilograms']; ?> kilograms</td>

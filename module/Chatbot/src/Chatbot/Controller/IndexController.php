@@ -12,6 +12,7 @@ use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Drivers\DriverManager;
 
 use Cart\Model\CartEntity;
+use Incentive\Model\IncentiveEntity;
 
 class IndexController extends AbstractActionController
 {
@@ -20,6 +21,18 @@ class IndexController extends AbstractActionController
     $sm = $this->getServiceLocator();
     return $sm->get('CartMapper');
   }
+
+  public function getIncentiveMapper()
+  {
+    $sm = $this->getServiceLocator();
+    return $sm->get('IncentiveMapper');
+  }
+
+  public function getUserMapper()
+	{
+		$sm = $this->getServiceLocator();
+		return $sm->get('UserMapper');
+	}
 
   public function indexAction()
   {
@@ -67,23 +80,64 @@ class IndexController extends AbstractActionController
 
       if($container->heightCentimeters > 0 && $container->weightKilograms > 0){
         $bmi = $container->weightKilograms / ($container->heightCentimeters / 100 * $container->heightCentimeters / 100);
+        $bmi_category = null;
 
         if($bmi < 18.5){
           $bmiResut = "Your B M I category is underweight.";
+          $bmi_category = 'underweight';
           $reply .= 'You are ' . $container->weightKilograms . ' kilograms in weight. ' . $bmiResut . ".";
           $reply .= 'I can recommend a diet for underweight by saying diet for underweight. Or I can recommend a gym program for underweight by saying gym program for underweight.';
         }else if($bmi >= 18.5 && $bmi <= 24.9){
           $bmiResut = "Your B M I category is normal weight.";
+          $bmi_category = 'normal weight';
           $reply .= 'You are ' . $container->weightKilograms . ' kilograms in weight. ' . $bmiResut . ".";
           $reply .= 'Congratulations! Your physically fit. I can recommend a diet to maintain your normal weight by saying diet for normal weight. Or I can recommend a gym program to maintain your normal weight by saying gym program for normal weight.';
         }else if($bmi >= 25 && $bmi <= 29.9){
           $bmiResut = "Your B M I category is overweight.";
+          $bmi_category = 'overweight';
           $reply .= 'You are ' . $container->weightKilograms . ' kilograms in weight. ' . $bmiResut . ".";
           $reply .= 'I can recommend a diet for underweight by saying diet for overweight. Or I can recommend a gym program for underweight by saying gym program for overweight.';
         }else if($bmi >= 30){
           $bmiResut = "Your B M I category is obese.";
+          $bmi_category = 'obese';
           $reply .= 'You are ' . $container->weightKilograms . ' kilograms in weight. ' . $bmiResut . ".";
           $reply .= 'I can recommend a diet for underweight by saying diet for obese. Or I can recommend a gym program for obese by saying gym program for obese.';
+        }
+
+        $authService = $this->serviceLocator->get('auth_service');
+        if ($authService->getIdentity()) {
+          $user = $this->getUserMapper()->getUser($this->identity()->id);
+    			if($user){
+            if($bmi_category == 'normal weight'){
+        			$credit = 10;
+        		}else{
+        			$credit = 0;
+        		}
+
+            $filter = array(
+      				'created_user_id' => $user->getId(),
+      				'month' => date('n'),
+      				'year' => date('Y'),
+      			);
+      			$order = array();
+      			$incentives = $this->getIncentiveMapper()->getIncentives(false, $filter, $order);
+      			if(count($incentives) <= 0){
+      				$incentive = new IncentiveEntity;
+      				$incentive->setHeightCentimeters($container->heightCentimeters);
+      				$incentive->setWeightKilograms($container->weightKilograms);
+      				$incentive->setBmi($bmi);
+      				$incentive->setBmiCategory($bmi_category);
+      				$incentive->setIncentive($credit);
+      				$incentive->setCreatedUserId($user->getId());
+      				$this->getIncentiveMapper()->save($incentive);
+      			}
+
+            if($credit){
+              $user->setCredits($user->getCredits() + $credit);
+      				$this->getUserMapper()->save($user);
+            }
+
+          }
         }
       }else{
         $bmiResut = "Invalid entries!";
@@ -451,7 +505,7 @@ Your browser does not support the video tag.
       }
     });
 
-    $botman->hears('nutrition fact for {food}', function (BotMan $bot, $food) {
+    $botman->hears('nutrition facts for {food}', function (BotMan $bot, $food) {
       $isDebug = false;
 
   		$results = array();

@@ -367,7 +367,7 @@ class IndexController extends AbstractActionController
 			$errors['bmi_category'] = 'Invalid BMI category.';
 		}
 
-		if($bmi_category == 'Normal weight'){
+		if($bmi_category == 'normal weight'){
 			$credit = 10;
 		}else{
 			$credit = 0;
@@ -393,7 +393,7 @@ class IndexController extends AbstractActionController
 			}
 
 			if($credit){
-				$user->setCredits($credit);
+				$user->setCredits($user->getCredits() + $credit);
 				$this->getUserMapper()->save($user);
 			}
 

@@ -103,27 +103,42 @@ const GetBodyMassIndexWeightIntentHandler = {
     var speechText = '';
     const repromptText = '';
     var bmiResut = '';
+    var bmi_category = '';
 
     if(attributes.heightCentimeters > 0 && attributes.weightKilograms > 0){
       var bmi = attributes.weightKilograms / (attributes.heightCentimeters / 100 * attributes.heightCentimeters / 100);
 
       if(bmi < 18.5){
         bmiResut = "Your B M I category is underweight.";
+        bmi_category = 'underweight';
         speechText += 'You are ' + weightKilograms + ' kilograms in weight. ' + bmiResut + ".";
         speechText += 'I can recommend a diet for underweight by saying diet for underweight. Or I can recommend a gym program for underweight by saying gym program for underweight.';
       }else if(bmi >= 18.5 && bmi <= 24.9){
         bmiResut = "Your B M I category is normal weight."
+        bmi_category = 'normal weight';
         speechText += 'You are ' + weightKilograms + ' kilograms in weight. ' + bmiResut + ".";
         speechText += 'Congratulations! Your physically fit. I can recommend a diet to maintain your normal weight by saying diet for normal weight. Or I can recommend a gym program to maintain your normal weight by saying gym program for normal weight.';
       }else if(bmi >= 25 && bmi <= 29.9){
         bmiResut = "Your B M I category is overweight."
+        bmi_category = 'overweight';
         speechText += 'You are ' + weightKilograms + ' kilograms in weight. ' + bmiResut + ".";
         speechText += 'I can recommend a diet for underweight by saying diet for overweight. Or I can recommend a gym program for underweight by saying gym program for overweight.';
       }else if(bmi >= 30){
         bmiResut = "Your B M I category is obese."
+        bmi_category = 'obese';
         speechText += 'You are ' + weightKilograms + ' kilograms in weight. ' + bmiResut + ".";
         speechText += 'I can recommend a diet for underweight by saying diet for obese. Or I can recommend a gym program for obese by saying gym program for obese.';
       }
+
+      var url = `https://aws2019.gigamike.net/api/bmi-add`
+        + `?user_id=10`
+        + `&height_centimeters=` + attributes.heightCentimeters
+        + `&weight_kilograms=` + attributes.weightKilograms
+        + `&bmi=` + bmi
+        + `&bmi_category=` + bmi_category;
+      request.get(url, (error, response, body) => {
+
+      });
     }else{
       bmiResut = "Invalid entries!"
       speechText += bmiResut;

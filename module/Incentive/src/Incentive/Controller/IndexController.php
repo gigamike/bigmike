@@ -44,7 +44,7 @@ class IndexController extends AbstractActionController
       'created_user_id' => $user->getId(),
     );
     $order=array();
-    $incentives = $this->getIncentiveMapper()->getIncentives(false, $filter = array(), $order=array());
+    $incentives = $this->getIncentiveMapper()->getIncentives(false, $filter, $order);
 
     return new ViewModel([
       'incentives' => $incentives,

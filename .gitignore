@@ -1,5 +1,9 @@
 .vagrant/
 config/development.config.php
 data/cache/*
+geoip/*
+docs/*
+config/autoload/global.php
+config/autoload/local.php
 !data/cache/.gitkeep
 phpunit.xml

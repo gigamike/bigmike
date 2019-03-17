@@ -1,0 +1,174 @@
+<style>
+
+}
+</style>
+<script type="text/javascript" src="/vendor/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/vendor/9bitStudios-flexisel-f86b2ef/js/jquery.flexisel.js"></script>
+
+<!------ Include the above in your HEAD tag ---------->
+<?php //$this->analytics
+$datas  = array();
+foreach ($this->analytics as $key => $value) {
+    foreach ($value as $a => $b) {
+      array_push($datas, $b);
+    }
+}
+
+$datas = (json_encode($datas));
+ ?>
+<div class="col-md-12">
+  <!-- BEGIN CHART PORTLET-->
+  <div class="portlet light bordered">
+    <div class="portlet-title">
+      <div class="caption">
+        <i class="icon-bar-chart font-green-haze"></i>
+        <span class="caption-subject bold uppercase font-green-haze"> Line & Area</span>
+        <span class="caption-helper">oweight on value axis</span>
+      </div>
+      <div class="tools">
+        <a href="javascript:;" class="collapse">
+        </a>
+        <a href="#portlet-config" data-toggle="modal" class="config">
+        </a>
+        <a href="javascript:;" class="reload">
+        </a>
+        <a href="javascript:;" class="fullscreen">
+        </a>
+        <a href="javascript:;" class="remove">
+        </a>
+      </div>
+    </div>
+    <div class="portlet-body">
+      <div id="chart_2" class="chart" style="height: 400px;">
+      </div>
+    </div>
+  </div>
+  <!-- END CHART PORTLET-->
+</div>
+
+<script src="/vendor/amcharts/amcharts.js" type="text/javascript"></script>
+<script src="/vendor/amcharts/serial.js" type="text/javascript"></script>
+<script src="/vendor/amcharts/pie.js" type="text/javascript"></script>
+<script src="/vendor/amcharts/radar.js" type="text/javascript"></script>
+<script src="/vendor/amcharts/themes/light.js" type="text/javascript"></script>
+<script src="/vendor/amcharts/themes/patterns.js" type="text/javascript"></script>
+<script src="/vendor/amcharts/themes/chalk.js" type="text/javascript"></script>
+<script>
+
+    var data = <?php echo $datas; ?>;
+    var data2 = JSON.stringify(data);
+   console.log(data[0])
+</script>
+<script type="text/javascript">
+var chart = AmCharts.makeChart("chart_2", {
+    "type": "serial",
+    "theme": "light",
+
+    "fontFamily": 'Open Sans',
+    "color":    '#888888',
+
+    "legend": {
+        "equalWidths": false,
+        "useGraphSettings": true,
+        "valueAlign": "left",
+        "valueWidth": 120
+    },
+    "dataProvider": [data[0],data[1],data[2],data[3],data[4],data[5],data[6]],
+    "valueAxes": [{
+        "id": "nweightAxis",
+        "axisAlpha": 0,
+        "gridAlpha": 0,
+        "position": "left",
+        "title": "Totals"
+    }, {
+        "id": "uweightAxis",
+        "axisAlpha": 0,
+        "gridAlpha": 0,
+        "labelsEnabled": false,
+        "position": "right"
+    }],
+    "graphs": [{
+        "alphaField": "alpha",
+        "balloonText": "Normal Weight Totals: [[value]] ",
+        "dashLengthField": "dashLength",
+        "fillAlphas": 0.7,
+        // "legendPeriodValueText": "total: [[value.sum]] mi",
+        // "legendValueText": "[[value]] mi",
+        "title": "Normal Weight",
+        "type": "column",
+        "valueField": "nweight",
+        "valueAxis": "nweightAxis"
+    }, {
+        "balloonText": "Under Weight Totals: [[value]]",
+        "bullet": "round",
+        "bulletBorderAlpha": 1,
+        "useLineColorForBulletBorder": true,
+        "bulletColor": "#FFFFFF",
+        "bulletSizeField": "townSize",
+        "dashLengthField": "dashLength",
+        "descriptionField": "townName",
+        "labelPosition": "right",
+        "labelText": "[[townName2]]",
+        "legendValueText": "[[value]]",
+        "title": "Under Weight",
+        "fillAlphas": 0,
+        "valueField": "uweight",
+        "valueAxis": "uweightAxis"
+    }, {
+          "balloonText": "Overweight Weight Totals: [[value]]",
+        "bullet": "square",
+        "bulletBorderAlpha": 1,
+        "bulletBorderThickness": 1,
+        "dashLengthField": "dashLength",
+        "legendValueText": "[[value]]",
+        "title": "Overweight",
+        "fillAlphas": 0,
+        "valueField": "oweight",
+        "valueAxis": "oweightAxis"
+    }],
+    "chartCursor": {
+        "categoryBalloonDateFormat": "DD",
+        "cursorAlpha": 0.1,
+        "cursorColor": "#000000",
+        "fullWidth": true,
+        "valueBalloonsEnabled": false,
+        "zoomable": false
+    },
+    "dataDateFormat": "YYYY-MM-DD",
+    "categoryField": "date",
+    "categoryAxis": {
+        "dateFormats": [{
+            "period": "DD",
+            "format": "DD"
+        }, {
+            "period": "WW",
+            "format": "MMM DD"
+        }, {
+            "period": "MM",
+            "format": "MMM"
+        }, {
+            "period": "YYYY",
+            "format": "YYYY"
+        }],
+        "parseDates": true,
+        "autoGridCount": false,
+        "axisColor": "#555555",
+        "gridAlpha": 0.1,
+        "gridColor": "#FFFFFF",
+        "gridCount": 50
+    },
+    "exportConfig": {
+        "menuBottom": "20px",
+        "menuRight": "22px",
+        "menuItems": [{
+            "icon": "/vendoramcharts/amcharts/images/export.png",
+            "format": 'png'
+        }]
+    }
+});
+
+$('#chart_2').closest('.portlet').find('.fullscreen').click(function() {
+    chart.invalidateSize();
+});
+</script>

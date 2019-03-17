@@ -198,6 +198,24 @@ return array(
                     ),
                 ),
             ),
+            'analytics' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route'    => '/analytics[/:action][/:id][/page/:page][/search_by/:search_by]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                        'page' => '[0-9]+',
+                        'order_by' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'order' => 'ASC|DESC',
+                        'search_by' => '.*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Analytics\Controller\Index',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
             'microsoft' => array(
                 'type' => 'segment',
                 'options' => array(

@@ -23,6 +23,7 @@ return array(
 		'api',
 		'chatbot',
 		'incentives',
+		'analytics',
 	),
 	'supplier'=> array(
 		'supplier',

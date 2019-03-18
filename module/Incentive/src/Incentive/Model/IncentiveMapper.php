@@ -147,14 +147,14 @@ class IncentiveMapper
 			'bmi',
 			'bmi_category',
 			'incentive',
-      'month' => new \Zend\Db\Sql\Expression("MONTH(" . $this->tableName . ".created_datetime)"),
-      'year' => new \Zend\Db\Sql\Expression("YEAR(" . $this->tableName . ".created_datetime)"),
+      'month' => new \Zend\Db\Sql\Expression("MONTH(created_datetime)"),
+      'year' => new \Zend\Db\Sql\Expression("YEAR(created_datetime)"),
 		));
 
     $where = new \Zend\Db\Sql\Where();
 
 		if(isset($filter['created_user_id'])){
-			$where->equalTo($this->tableName . ".created_user_id", $filter['created_user_id']);
+			$where->equalTo("created_user_id", $filter['created_user_id']);
 		}
 
 		if(isset($filter['month']) && !empty($filter['month'])){
